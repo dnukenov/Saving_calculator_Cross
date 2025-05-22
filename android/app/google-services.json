@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "273120843685",
+    "project_id": "savingcalculat0r",
+    "storage_bucket": "savingcalculat0r.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273120843685:android:06816d13e5c177dc6c3a4c",
+        "android_client_info": {
+          "package_name": "com.example.my_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273120843685:android:0e119b7206207bab6c3a4c",
+        "android_client_info": {
+          "package_name": "com.example.my_app123"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:273120843685:android:0883cb04532815f56c3a4c",
+        "android_client_info": {
+          "package_name": "com.example.new_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

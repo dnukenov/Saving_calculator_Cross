@@ -1,0 +1,17 @@
+{
+  "@@locale": "kk",
+  "appTitle": "Жинақ Калькуляторы",
+  "home": "Басты бет",
+  "settings": "Параметрлер",
+  "profile": "Профиль",
+  "about": "Қосымша туралы",
+  "addItem": "Элемент қосу",
+  "noItems": "Қол жетімді элементтер жоқ",
+  "chooseTheme": "Тақырыпты таңдаңыз",
+  "darkMode": "Қараңғы режим",
+  "chooseLanguage": "Тілді таңдаңыз",
+  "logout": "Шығу",
+  "loggedInAs": "Кіру аты",
+  "currentTheme": "Қазіргі тақырып",
+  "currentLanguage": "Қазіргі тіл"
+}

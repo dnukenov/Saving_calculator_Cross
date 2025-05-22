@@ -1,0 +1,17 @@
+{
+  "@@locale": "en",
+  "appTitle": "Saving Calculator",
+  "home": "Home",
+  "settings": "Settings",
+  "profile": "Profile",
+  "about": "About",
+  "addItem": "Add Item",
+  "noItems": "No items available",
+  "chooseTheme": "Choose Theme",
+  "darkMode": "Dark Mode",
+  "chooseLanguage": "Choose Language",
+  "logout": "Logout",
+  "loggedInAs": "Logged in as",
+  "currentTheme": "Current Theme",
+  "currentLanguage": "Current Language"
+}

@@ -1,0 +1,17 @@
+{
+  "@@locale": "ru",
+  "appTitle": "Калькулятор Сбережений",
+  "home": "Главная",
+  "settings": "Настройки",
+  "profile": "Профиль",
+  "about": "О приложении",
+  "addItem": "Добавить элемент",
+  "noItems": "Нет доступных элементов",
+  "chooseTheme": "Выберите тему",
+  "darkMode": "Темная тема",
+  "chooseLanguage": "Выберите язык",
+  "logout": "Выйти",
+  "loggedInAs": "Вы вошли как",
+  "currentTheme": "Текущая тема",
+  "currentLanguage": "Текущий язык"
+}
