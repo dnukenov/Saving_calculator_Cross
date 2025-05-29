@@ -13,7 +13,6 @@ workflows:
       - name: Clean and prepare
         script: |
           rm -rf ios/Pods ios/Podfile.lock
-          flutter clean
           flutter pub get
           cd ios
           pod install
