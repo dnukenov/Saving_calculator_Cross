@@ -1,26 +1,28 @@
 workflows:
-  ios-build-only:
-    name: iOS Build Only
-    max_build_duration: 45
+  ios-app-build:
+    name: iOS App Build (Unsigned)
+    max_build_duration: 30
     environment:
-      ios_signing:
-        distribution_type: development
-        bundle_identifier: com.example.myApp
-      vars:
-        XCODE_WORKSPACE: "ios/Runner.xcworkspace"
-        XCODE_SCHEME: "Runner"
-        APP_ZIP_PATH: "build/ios/Runner.app.zip"
       flutter: stable
+      xcode: latest
+      cocoapods: default
+      vars:
+        BUNDLE_ID: com.example.newProject
     scripts:
-      - name: Get Flutter dependencies
-        script: |
-          flutter pub get
-      - name: Build iOS .app
+      - name: Install Flutter dependencies
+        script: flutter pub get
+
+      - name: Build iOS .app (no signing)
         script: |
           flutter build ios --release --no-codesign
-      - name: Zip Runner.app
+
+      - name: Zip the .app file
         script: |
-          cd build/ios/iphoneos
-          zip -r Runner.app.zip Runner.app
+          mkdir -p build/ios/app
+          cp -r build/ios/iphoneos/Runner.app build/ios/app/
+          cd build/ios
+          zip -r runner.app.zip app
+
     artifacts:
-      - build/ios/iphoneos/Runner.app.zip
+      - build/ios/runner.app.zip
+
