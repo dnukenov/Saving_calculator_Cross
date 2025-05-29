@@ -1,0 +1,12 @@
+
+{
+  "@@locale": "en",
+  "title": "Tasks",
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "add": "Add",
+  "edit": "Edit Task",
+  "new": "New Task"
+}

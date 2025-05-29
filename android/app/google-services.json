@@ -1,51 +1,13 @@
 {
   "project_info": {
-    "project_number": "273120843685",
-    "project_id": "savingcalculat0r",
-    "storage_bucket": "savingcalculat0r.firebasestorage.app"
+    "project_number": "627352748928",
+    "project_id": "saving123-b7731",
+    "storage_bucket": "saving123-b7731.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:273120843685:android:06816d13e5c177dc6c3a4c",
-        "android_client_info": {
-          "package_name": "com.example.my_app"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:273120843685:android:0e119b7206207bab6c3a4c",
-        "android_client_info": {
-          "package_name": "com.example.my_app123"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:273120843685:android:0883cb04532815f56c3a4c",
+        "mobilesdk_app_id": "1:627352748928:android:b6db6a833ea3d12e63f765",
         "android_client_info": {
           "package_name": "com.example.new_project"
         }
@@ -53,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M"
+          "current_key": "AIzaSyA1gv9CH4T2sqwXnNWhZSHIrRRGpTH1XQY"
         }
       ],
       "services": {

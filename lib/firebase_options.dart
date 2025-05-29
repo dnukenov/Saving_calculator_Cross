@@ -41,47 +41,54 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBeOjY3av0aC0SP8K3cTLg-ugho1izhd1M',
-    appId: '1:273120843685:android:0883cb04532815f56c3a4c',
-    messagingSenderId: '273120843685',
-    projectId: 'savingcalculat0r',
-    storageBucket: 'savingcalculat0r.firebasestorage.app',
+    apiKey: 'AIzaSyCsoCHFI034T5Oamt65WHVzbs0NRDQ8Y20',
+    appId: '1:559115929002:android:82d5d5f11d6ebb0e65d7d3',
+    messagingSenderId: '559115929002',
+    projectId: 'recipeapp-6f3b2',
+    databaseURL: 'https://recipeapp-6f3b2-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'recipeapp-6f3b2.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDBZ3gV2B8U7Sd45ymakv7NclG8drlIVQw',
-    appId: '1:273120843685:ios:15ca49f197a4312d6c3a4c',
-    messagingSenderId: '273120843685',
-    projectId: 'savingcalculat0r',
-    storageBucket: 'savingcalculat0r.firebasestorage.app',
+    apiKey: 'AIzaSyCPz1ttEjEQNeunNqOghAfC8rBjtwhaTvE',
+    appId: '1:559115929002:ios:b5ed429df9f4b40c65d7d3',
+    messagingSenderId: '559115929002',
+    projectId: 'recipeapp-6f3b2',
+    databaseURL: 'https://recipeapp-6f3b2-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'recipeapp-6f3b2.firebasestorage.app',
     iosBundleId: 'com.example.newProject',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAS33gjiCcpvS5dgFqB-DbUksUSGPkbgvc',
-    appId: '1:273120843685:web:fe71449aa0b405f66c3a4c',
-    messagingSenderId: '273120843685',
-    projectId: 'savingcalculat0r',
-    authDomain: 'savingcalculat0r.firebaseapp.com',
-    storageBucket: 'savingcalculat0r.firebasestorage.app',
+    apiKey: 'AIzaSyASOvr0VyZDqRKMjt2bLtqUVxe1ZKKq6x4',
+    appId: '1:559115929002:web:36e7f376edabb15365d7d3',
+    messagingSenderId: '559115929002',
+    projectId: 'recipeapp-6f3b2',
+    authDomain: 'recipeapp-6f3b2.firebaseapp.com',
+    databaseURL: 'https://recipeapp-6f3b2-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'recipeapp-6f3b2.firebasestorage.app',
+    measurementId: 'G-7L38EECV24',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDBZ3gV2B8U7Sd45ymakv7NclG8drlIVQw',
-    appId: '1:273120843685:ios:15ca49f197a4312d6c3a4c',
-    messagingSenderId: '273120843685',
-    projectId: 'savingcalculat0r',
-    storageBucket: 'savingcalculat0r.firebasestorage.app',
+    apiKey: 'AIzaSyCPz1ttEjEQNeunNqOghAfC8rBjtwhaTvE',
+    appId: '1:559115929002:ios:b5ed429df9f4b40c65d7d3',
+    messagingSenderId: '559115929002',
+    projectId: 'recipeapp-6f3b2',
+    databaseURL: 'https://recipeapp-6f3b2-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'recipeapp-6f3b2.firebasestorage.app',
     iosBundleId: 'com.example.newProject',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAS33gjiCcpvS5dgFqB-DbUksUSGPkbgvc',
-    appId: '1:273120843685:web:b4ebb71297ccf96a6c3a4c',
-    messagingSenderId: '273120843685',
-    projectId: 'savingcalculat0r',
-    authDomain: 'savingcalculat0r.firebaseapp.com',
-    storageBucket: 'savingcalculat0r.firebasestorage.app',
+    apiKey: 'AIzaSyASOvr0VyZDqRKMjt2bLtqUVxe1ZKKq6x4',
+    appId: '1:559115929002:web:b41d58161ea5e04b65d7d3',
+    messagingSenderId: '559115929002',
+    projectId: 'recipeapp-6f3b2',
+    authDomain: 'recipeapp-6f3b2.firebaseapp.com',
+    databaseURL: 'https://recipeapp-6f3b2-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'recipeapp-6f3b2.firebasestorage.app',
+    measurementId: 'G-8NJPKQN9LB',
   );
 
 }

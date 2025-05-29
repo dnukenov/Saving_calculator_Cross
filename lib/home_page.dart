@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'settings_service.dart';
-import 'auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'models/task_model.dart';
+import 'services/firebase_service.dart';
+import 'services/hive_service.dart';
+import 'services/connectivity_service.dart';
+import 'package:uuid/uuid.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,94 +15,202 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> _items = ['Coffee', 'Lunch', 'Snacks'];
-  bool _showItems = true;
-
-  void _toggleItems() {
-    setState(() {
-      _showItems = !_showItems;
-    });
-  }
-
-  void _addItem() {
-    setState(() {
-      _items.add('Item ${_items.length + 1}');
-    });
-  }
+  final List<Task> _tasks = [];
+  bool _isGuest = true;
+  FirebaseService? _firebaseService;
+  final _hiveService = HiveService();
+  final _connectivityService = ConnectivityService();
+  final _uuid = const Uuid();
+  bool _isLoading = true;
 
   @override
-  Widget build(BuildContext context) {
-    final settings = Provider.of<SettingsService>(context);
-    final auth = Provider.of<AuthService>(context);
-    final local = AppLocalizations.of(context)!;
-    final orientation = MediaQuery.of(context).orientation;
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      final user = FirebaseAuth.instance.currentUser;
+      setState(() {
+        _isGuest = user == null || user.isAnonymous;
+        _firebaseService = (!_isGuest && user != null) ? FirebaseService(user.uid) : null;
+      });
+      await _loadTasks();
+    });
+  }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(local.home),
+  Future<void> _loadTasks() async {
+    List<Task> tasks = [];
+    bool isOnline = false;
+    try {
+      isOnline = await _connectivityService.isConnected();
+    } catch (_) {}
+    try {
+      if (isOnline && !_isGuest && _firebaseService != null) {
+        tasks = await _firebaseService!.fetchTasks();
+      } else {
+        tasks = await _hiveService.loadTasks();
+      }
+    } catch (_) {}
+    setState(() {
+      _tasks.clear();
+      _tasks.addAll(tasks);
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _saveAll() async {
+    if (!_isGuest && _firebaseService != null) {
+      await _firebaseService!.saveAllTasks(_tasks);
+    }
+    await _hiveService.saveTasks(_tasks);
+  }
+
+  void _addTask(String title) async {
+    final task = Task(id: _uuid.v4(), title: title, savedMoney: 0.0);
+    setState(() => _tasks.add(task));
+    await _saveAll();
+  }
+
+  void _deleteTask(Task task) async {
+    setState(() => _tasks.removeWhere((t) => t.id == task.id));
+    await _saveAll();
+  }
+
+  void _editTaskTitle(Task task) {
+    final controller = TextEditingController(text: task.title);
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.editTitle),
+        content: TextField(controller: controller),
         actions: [
-          IconButton(
-            onPressed: _addItem,
-            icon: const Icon(Icons.add),
-            tooltip: local.addItem,
-          ),
+          TextButton(
+            onPressed: () async {
+              final updated = task.copyWith(title: controller.text);
+              _updateTask(updated);
+              Navigator.pop(context);
+            },
+            child: Text(AppLocalizations.of(context)!.save),
+          )
         ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(child: Text(local.appTitle)),
-            ListTile(
-              title: Text(local.settings),
-              onTap: () => Navigator.pushNamed(context, '/settings'),
-            ),
-            if (auth.isAuthenticated)
-              ListTile(
-                title: Text(local.profile),
-                onTap: () => Navigator.pushNamed(context, '/profile'),
-              ),
-            ListTile(
-              title: Text(local.about),
-              onTap: () => Navigator.pushNamed(context, '/about'),
-            ),
-          ],
-        ),
-      ),
-      body: orientation == Orientation.portrait
-          ? _buildListView()
-          : _buildGridView(),
-      floatingActionButton: GestureDetector(
-        onLongPress: _toggleItems,
-        child: FloatingActionButton(
-          onPressed: _addItem,
-          child: const Icon(Icons.add),
-        ),
       ),
     );
   }
 
-  Widget _buildListView() {
-    return _showItems
-        ? ListView.builder(
-            itemCount: _items.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(_items[index]),
-            ),
+  void _editSavedMoney(Task task) {
+    final controller = TextEditingController(text: task.savedMoney.toString());
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(AppLocalizations.of(context)!.editSavedMoney),
+        content: TextField(
+          controller: controller,
+          keyboardType: TextInputType.number,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () async {
+              final updated = task.copyWith(savedMoney: double.tryParse(controller.text) ?? 0.0);
+              _updateTask(updated);
+              Navigator.pop(context);
+            },
+            child: Text(AppLocalizations.of(context)!.save),
           )
-        : Center(child: Text(AppLocalizations.of(context)!.noItems));
+        ],
+      ),
+    );
   }
 
-  Widget _buildGridView() {
-    return _showItems
-        ? GridView.count(
-            crossAxisCount: 2,
-            children: _items
-                .map((e) => Card(
-                      margin: const EdgeInsets.all(8),
-                      child: Center(child: Text(e)),
-                    ))
-                .toList(),
-          )
-        : Center(child: Text(AppLocalizations.of(context)!.noItems));
+  void _updateTask(Task updatedTask) async {
+    final index = _tasks.indexWhere((t) => t.id == updatedTask.id);
+    if (index != -1) {
+      setState(() => _tasks[index] = updatedTask);
+      await _saveAll();
+    }
+  }
+
+  int _lastTap = 0;
+
+  void _handleTap(Task task) {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (now - _lastTap < 300) {
+      _editTaskTitle(task); // double tap
+    } else {
+      _editSavedMoney(task); // single tap
+    }
+    _lastTap = now;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final local = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(local.month),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            tooltip: local.about,
+            onPressed: () => Navigator.pushNamed(context, '/about'),
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: local.logout,
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              if (context.mounted) {
+                Navigator.pushReplacementNamed(context, '/');
+              }
+            },
+          ),
+          if (!_isGuest)
+            IconButton(
+              icon: const Icon(Icons.settings),
+              tooltip: local.settings,
+              onPressed: () => Navigator.pushNamed(context, '/settings'),
+            ),
+        ],
+      ),
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: _tasks.length,
+              itemBuilder: (_, i) {
+                final task = _tasks[i];
+                return GestureDetector(
+                  onTap: () => _handleTap(task),
+                  onLongPress: () => _deleteTask(task),
+                  child: Card(
+                    child: ListTile(
+                      title: Text(task.title),
+                      subtitle: Text('${local.savedMoney}: ${task.savedMoney}'),
+                    ),
+                  ),
+                );
+              },
+            ),
+      floatingActionButton: _isGuest
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
+                final controller = TextEditingController();
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: Text(local.newMonth),
+                    content: TextField(controller: controller),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          _addTask(controller.text);
+                          Navigator.pop(context);
+                        },
+                        child: Text(local.add),
+                      )
+                    ],
+                  ),
+                );
+              },
+              child: const Icon(Icons.add),
+            ),
+    );
   }
 }

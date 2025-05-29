@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'settings_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
